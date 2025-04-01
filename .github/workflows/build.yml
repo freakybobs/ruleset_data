@@ -27,7 +27,7 @@ jobs:
         run: |
           for file in source/*.json; do
             filename=$(basename "$file" .json)
-            sing-box rule-set compile "$file" -o "srs/${filename}.srs"
+            sing-box rule-set compile "$file" -o "binary/${filename}.srs"
           done
 
       - name: Commit and push changes
