@@ -1,0 +1,39 @@
+name: Compile Rule-Set
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  push:
+    paths:
+      - "json/*.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sing-box
+        run: |
+          bash <(curl -fsSL https://sing-box.app/deb-install.sh)
+
+      - name: Create output directory
+        run: mkdir -p binary
+
+      - name: Compile JSON to SRS
+        run: |
+          for file in source/*.json; do
+            filename=$(basename "$file" .json)
+            sing-box rule-set compile "$file" -o "srs/${filename}.srs"
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add binary/*.srs
+          git commit -m "chore: auto-compile rule-sets from JSON to SRS files" || exit 0
+          git push
