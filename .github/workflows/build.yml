@@ -30,6 +30,9 @@ jobs:
             sing-box rule-set compile "$file" -o "binary/${filename}.srs"
           done
 
+          curl -Ls https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt -o AdGuardSDNSFilter.txt
+          sing-box rule-set convert --type adguard --output binary/AdGuardSDNSFilter.srs AdGuardSDNSFilter.txt
+
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
