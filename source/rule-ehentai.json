@@ -1,0 +1,22 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "exhentai.org",
+        "e-hentai.org",
+        "ehgt.org",
+        "nhentai.net",
+        "hitomi.la",
+        "forums.e-hentai.org"
+      ],
+      "domain_keyword": [
+        "ehentai",
+        "exhentai",
+        "hitomi",
+        "e-hentai",
+        "hanime"
+      ]
+    }
+  ]
+}
